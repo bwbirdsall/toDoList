@@ -32,28 +32,7 @@ var PhoneNumber = {
 };
 
 $(document).ready(function() {
-  $("#add-address").click(function() {
-    $("#new-addresses").append('<div class="new-address">' + 
-                                 '<div class="form-group">' + 
-                                   '<label for="new-street">Street</label>' + 
-                                   '<input type="text" class="form-control new-street">' + 
-                                 '</div>' + 
-                                 '<div class="form-group">' + 
-                                   '<label for="new-city">City</label>' + 
-                                   '<input type="text" class="form-control new-city">' + 
-                                 '</div>' + 
-                                 '<div class="form-group">' + 
-                                   '<label for="new-state">State</label>' + 
-                                   '<input type="text" class="form-control new-state">' + 
-                                 '</div>' + 
-                                 '<div class="form-group">' + 
-                                   '<label for="new-zip-code">Zip Code</label>' + 
-                                   '<input type="text" class="form-control new-zip-code">' + 
-                                 '</div>' + 
-                               '</div>');
-  });
-
-  $("#add-phone-number").click(function() {
+/*    $("#add-phone-number").click(function() {
     $("#new-phone-numbers").append('<div class="new-phone-number">' +
                                       '<div class="form-group">' +
                                         '<label for="new-number">Phone Number</label>' +
@@ -61,78 +40,15 @@ $(document).ready(function() {
                                       '</div>' +
                                     '</div>');
   });
-
-  $("form#new-contact").submit(function(event) {
+*/
+  $("form#new-task").submit(function(event) {
     event.preventDefault();
 
-    var invalidInputCounter = 0;
-    var inputtedFirstName = $("input#new-first-name").val();
-    var inputtedLastName = $("input#new-last-name").val();
+    var inputtedTask = $("input#new-task").val();
 
-    var newContact = Object.create(Contact);
-    newContact.firstName = inputtedFirstName;
-    newContact.lastName = inputtedLastName;
+    $("ul#tasks").append("<li><span class='task'>" + inputtedTask + "</span></li>");      
 
-    newContact.addresses = [];
-    newContact.phoneNumbers = [];
-
-    $(".new-address").each(function() {
-      var inputtedStreet = $(this).find("input.new-street").val();
-      var inputtedCity = $(this).find("input.new-city").val();
-      var inputtedState = $(this).find("input.new-state").val();
-      var inputtedZipCode = $(this).find("input.new-zip-code").val();
-
-      var newAddress = Object.create(Address);
-      newAddress.street = inputtedStreet;
-      newAddress.city = inputtedCity;
-      newAddress.state = inputtedState;
-      newAddress.zipCode = inputtedZipCode;
-
-      if(!newAddress.valid()){
-        invalidInputCounter ++;
-        alert(newAddress.fullAddress() + " is not a valid address!  Please correct and re-enter");
-      }
-
-      newContact.addresses.push(newAddress);
-    });
-
-    $(".new-phone-number").each(function() {
-      var inputtedPhoneNumber = $(this).find("input.new-number").val();
-      var newPhoneNumber = Object.create(PhoneNumber);
-      newPhoneNumber.number = inputtedPhoneNumber;
-
-      if(!newPhoneNumber.valid()){
-        invalidInputCounter ++;
-        alert(newPhoneNumber.number + " is not a valid phone number! Please correct and re-enter.");
-      } 
-
-      newContact.phoneNumbers.push(newPhoneNumber);
-
-    })
-
-    if(invalidInputCounter === 0) {
-      $("ul#contacts").append("<li><span class='contact'>" + newContact.fullName() + "</span></li>");      
-
-      //Ask about this being within/outside of if test.
-      $(".contact").last().click(function() {
-        $("#show-contact").show();
-
-        $("#show-contact h2").text(newContact.fullName());
-        $(".first-name").text(newContact.firstName);
-        $(".last-name").text(newContact.lastName);
-
-        $("ul#addresses").text("");
-        newContact.addresses.forEach(function(address) {
-          $("ul#addresses").append("<li>" + address.fullAddress() + "</li>");
-        });
-
-        $("ul#phone-numbers").text("");
-        newContact.phoneNumbers.forEach(function(phoneNumber) {
-          $("ul#phone-numbers").append("<li>" + phoneNumber.formattedNumber() + "</li>");
-        });
-      });
-
-      this.reset();
-    }
+    $("#show-tasks").show();
+    this.reset();
   });
 });
