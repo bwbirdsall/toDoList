@@ -1,54 +1,50 @@
-var Contact = {
-  fullName: function() {
-    return this.firstName + " " + this.lastName;
-  }
+var List = {
 };
 
+var Task = {
 
-var Address = {
-  fullAddress: function() {
-    return this.street + ", " + this.city + ", " + this.state + " " + this.zipCode;
-  },
-  valid: function() {
-    var nonNumberRE = /\D/;
-    var numberRE = /\d/
-    var validZip = !nonNumberRE.test(this.zipCode) && this.zipCode.length === 5;
-    var validStreet = this.street.length > 0;
-    var validCity = this.city.length > 0 && !numberRE.test(this.city);
-    var validState = this.state.length > 0 && !numberRE.test(this.state);
-
-    return validZip && validStreet && validCity && validState; 
-  }
-};
-
-var PhoneNumber = {
-  formattedNumber: function() {
-    return "(" + this.number.slice(0,3) + ") " + this.number.slice(3,6) + "-" + this.number.slice(6);
-  },
-  valid: function() {
-    var re = /\D/;
-    return !re.test(this.number) && this.number.length === 10;
-  }
 };
 
 $(document).ready(function() {
-/*    $("#add-phone-number").click(function() {
-    $("#new-phone-numbers").append('<div class="new-phone-number">' +
-                                      '<div class="form-group">' +
-                                        '<label for="new-number">Phone Number</label>' +
-                                        '<input type="text" class="form-control new-number">' +
-                                      '</div>' +
-                                    '</div>');
-  });
-*/
-  $("form#new-task").submit(function(event) {
+  $("#add-task").click(function() {
+    $("#list-tasks").append('<div class="new-list-task">' +
+                              '<div class="form-group">' +
+                                '<label for="new-task">To Do Task</label>' +
+                                '<input type="text" class="form-control new-task">' +
+                              '</div>' +
+                            '</div>');
+    });
+
+  $("form#new-list").submit(function(event) {
     event.preventDefault();
 
-    var inputtedTask = $("input#new-task").val();
+    var inputtedList = $("input#new-list-name").val();
 
-    $("ul#tasks").append("<li><span class='task'>" + inputtedTask + "</span></li>");      
+    var newList = Object.create(List);
+    newList.name = inputtedList;
+    newList.tasks = [];
 
-    $("#show-tasks").show();
+    $(".new-list-task").each(function() {
+      newList.tasks.push($(this).find("input.new-task").val());
+    });
+
+    console.log(newList.tasks);
+
+    $("ul#lists").append("<li><span class='list'>" + newList.name + "</span></li>");
+
+    $("#show-lists").show();
+
+    $('.list').last().click(function(){
+      $("#show-tasks").show();
+      
+      $("#show-tasks h2").text(newList.name);
+      newList.tasks.forEach(function(task){
+        $("ul#tasks").append("<li><span class='task'>" + task + "</span></li>");
+      });  
+    });
+    
+
+
     this.reset();
   });
 });

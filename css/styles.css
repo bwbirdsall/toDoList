@@ -2,15 +2,20 @@
   display: none;
 }
 
+#show-lists {
+  display: none;
+}
+
 #show-tasks {
   display: none;
 }
 
-.contact {
+.list {
   cursor: pointer;
   color: #08c;
 }
 
-.contact:hover {
+.list:hover {
   text-decoration: underline;
 }
+
