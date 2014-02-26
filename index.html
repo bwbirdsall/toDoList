@@ -17,17 +17,8 @@
           <form id="new-list">
             <div class="form-group">
               <label for="new-list-name">Name of List</label>
-              <input type="text" class="form-control" id="new-list-name">
+              <input type="text" class="form-control" id="new-list-name" placeholder="Add a new list...">
             </div>
-            <div id="list-tasks">
-              <div class="new-list-task">
-                <div class="form-group">
-                  <label for="new-task">To Do Task</label>
-                  <input type="text" class="form-control new-task">
-                </div>
-              </div>
-            </div>
-            <span class="btn btn-primary" id="add-task">Add another Task</span>
             <button type="submit" class="btn btn-warning">Create List</button>
           </form>
           <div id="show-lists">
@@ -37,8 +28,16 @@
             </ul>
           </div>
         </div>
-
         <div class="col-md-6">
+          <h2>Add a task to the list:</h2>
+          <form id="new-tasks">
+            <div class="form-group">
+              <label for="new-task">Task</label>
+              <input type="text" class="form-control" id="new-task" placeholder="Add task...">
+            </div>
+            <button type="submit" class="btn btn-warning">Add Task</button>
+          </form>
+
           <div id="show-tasks">
             <h2></h2>
             <ul id="tasks">
